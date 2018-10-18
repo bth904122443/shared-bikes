@@ -2,7 +2,7 @@ Page({
   data: {
    log:0,
    lat:0,
-   controls:controls
+   controls:[]
   },
   
   //首次加载页面时调用
@@ -18,5 +18,18 @@ Page({
        })
      },
    })
+
+   that.setData({
+     controls:[
+       {
+         id:1,
+         iconPath:'images/ScanCode.png'
+       }
+     ]
+   })
   }
-})
+    
+  })
+
+
+
