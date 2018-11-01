@@ -2,7 +2,10 @@ Page({
   data: {
    log:0,
    lat:0,
-   controls:[]
+   controls:[],
+   markers:[
+     
+   ]
   },
   
   //首次加载页面时调用
@@ -27,7 +30,7 @@ Page({
         controls: [
           {//控件：扫码
             id: 1,
-            iconPath: 'images/ScanCode.png',
+            iconPath:'images/ScanCode.png',
             //控件相对页面的位置
             position: {
               width: 80,
@@ -38,7 +41,7 @@ Page({
             clickable:true
           },
           {//控件：充值
-            id:3,
+            id: 2,
             iconPath:'images/Pay.png',
             position:{
               width:40,
@@ -49,7 +52,7 @@ Page({
             clickable:true
           },
           {//控件：保修
-            id:3,
+            id: 3,
             iconPath:'images/Service.png',
             position:{
               width:40,
@@ -60,7 +63,7 @@ Page({
             clickable:true
             },
           {//控件：当前位置
-            id:4,
+            id: 4,
             iconPath:'images/Location.png',
             position:{
             width:40,
@@ -71,7 +74,7 @@ Page({
             clickable:true
           },
             {//控件：中心点位置
-            id:5,
+            id: 5,
             iconPath:'images/LocationA.png',
             position:{
               width: 40,
@@ -98,9 +101,37 @@ Page({
   },
   //控件被点击事件
   controltap: function (e) {
+    var that = this;
     var cid = e.controlId;
-    if (cid == 4) {
+    switch(cid){
+      //定位按钮
+      case 4:{
+        this.mapCtx.moveToLocation()
+        break;
+      }
+      //添加车辆
+      case 5:{
+        //获取当前已有的车辆
+        that.date.markers;
+        bikes.push({
+          iconPath:'images/Bikes.png',
+          width:35,
+          height:40,
+          longitude:that.data.log,
+          latitude:that.data.lat
+        })
+        //重新赋值
+        that.setData({
+          markers:bikes
+        })
+        break;
+      }
+    }
+    if(cid == 4){
       this.mapCtx.moveToLocation()
+    }
+    if(cid == 6){
+      console.log('add a bike')
     }
   },
   
@@ -108,7 +139,19 @@ Page({
   onReady:function(){
     //创建map上下文
     this.mapCtx = wx.createMapContext('myMap')
-  }
+  },
+  //移动地图后视野发生变化触发的事件
+  regionchange:function(e){
+    var etype = e.type;
+    if(etype == 'end') {
+      this.mapCtx.getCenterLocation({
+        success:function(res){
+          console.log(res.longitude)
+          console.log(res.latitude)
+        }
+      })
+    }
+  },
     
   })
 
