@@ -41,15 +41,73 @@ Page({
             id:3,
             iconPath:'images/Pay.png',
             position:{
-              
-            }
-
-          }
+              width:40,
+              height:40,
+              left:windowWidth /4-70,
+              top:windowHeight-100,
+            },
+            clickable:true
+          },
+          {//控件：保修
+            id:3,
+            iconPath:'images/Service.png',
+            position:{
+              width:40,
+              height:40,
+              left: windowWidth / 2 + 100,
+              top: windowHeight - 100,
+            },
+            clickable:true
+            },
+          {//控件：当前位置
+            id:4,
+            iconPath:'images/Location.png',
+            position:{
+            width:40,
+            height:40,
+            left: windowWidth / 4 -70,
+            top: windowHeight - 160,
+            },
+            clickable:true
+          },
+            {//控件：中心点位置
+            id:5,
+            iconPath:'images/LocationA.png',
+            position:{
+              width: 40,
+              height: 40,
+              left:windowWidth/2-20,
+              top:windowHeight/2-40.
+            },
+            clickable:true
+            },
+          {//控件：添加车辆
+            id: 6,
+            iconPath: 'images/AddBike.png',
+            position: {
+              width: 40,
+              height: 40,
+            },
+            clickable: true
+          },
         ]
       })
     },
   })
    
+  },
+  //控件被点击事件
+  controltap: function (e) {
+    var cid = e.controlId;
+    if (cid == 4) {
+      this.mapCtx.moveToLocation()
+    }
+  },
+  
+  //生命周期函数--监听页面初次渲染完成
+  onReady:function(){
+    //创建map上下文
+    this.mapCtx = wx.createMapContext('myMap')
   }
     
   })
